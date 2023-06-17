@@ -1,8 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { Container, Titulo, InputContainer } from './styles';
 import { Button, Input, InputLabel, InputAdornment } from '@mui/material';
+import { UsuarioContext } from '../../common/contexts/Usuario';
+import { useContext } from 'react';
 
-function Login({ nome, setNome, saldo, setSaldo }) {
+function Login() {
+  const { nome, setNome, saldo,setSaldo } = useContext(UsuarioContext);
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -19,6 +22,7 @@ function Login({ nome, setNome, saldo, setSaldo }) {
         <InputLabel>
           Nome
         </InputLabel>
+        
         <Input
           value={nome}
           onChange={(evento) => setNome(evento.target.value)}
