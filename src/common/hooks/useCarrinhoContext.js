@@ -4,17 +4,19 @@ import { useContext } from "react";
 export function useCarrinhoContext() {
     const [carrinho, setCarrinho] = useContext(CarrinhoContext);
 
-    function atualizarUnidadeDoProduto(id) {
-      return carrinho.map(produto => {
+    function atualizarUnidadeDoProduto(id, quantidade) {
+      const carrinhoComUnidadeDoProdutoAtualizada = carrinho.map(produto => {
         if (produto.id === id) {
-          produto.unidade += 1;
+          produto.unidade += quantidade;
         }
   
         return produto;
       });
+
+      setCarrinho([...carrinhoComUnidadeDoProdutoAtualizada]);
     };
   
-    function adicionarNovoProduto(produto) {
+    function adicionarNovoProduto(produto, quantidade) {
       const produtoJaFoiAdicionado = carrinho.some(({ id }) => id === produto.id);
   
       if (!produtoJaFoiAdicionado) {
@@ -24,8 +26,28 @@ export function useCarrinhoContext() {
         return;
       }
   
-      setCarrinho([...atualizarUnidadeDoProduto(produto.id)]);
-    } ; 
+      atualizarUnidadeDoProduto(produto.id, quantidade);
+    };
 
-    return { carrinho, adicionarNovoProduto };
+    //TODO: Rever os nomes das funções abaixo
+    function removerProduto(id)  {
+        setCarrinho((produtosAnteriores) => {
+           return produtosAnteriores.filter(produtoAnterior => produtoAnterior.id !== id)
+        });
+    };
+    
+    function lidarComARemocaoDoProduto(id) {
+        const produtoEncontrado = carrinho.find(produto => produto.id === id);
+
+        if (!produtoEncontrado) return;
+
+        if (produtoEncontrado.unidade > 1 ) {
+            atualizarUnidadeDoProduto(id, -1);
+            return; 
+        }
+
+        removerProduto(id);        
+    };
+
+    return { carrinho, adicionarNovoProduto, lidarComARemocaoDoProduto };
 }

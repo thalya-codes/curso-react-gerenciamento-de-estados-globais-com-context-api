@@ -12,8 +12,13 @@ function Produto({
   valor,
   unidade = 0
 }) {
-  const { carrinho, adicionarNovoProduto } = useCarrinhoContext();
-  const produtoNoCarrinho = carrinho.find(produto => produto.id === id);
+  const { 
+    carrinho, 
+    adicionarNovoProduto, 
+    lidarComARemocaoDoProduto 
+  } = useCarrinhoContext();
+  
+  const produtoNoCarrinho = carrinho?.find(produto => produto.id === id);
 
   return (
       <Container>
@@ -29,13 +34,14 @@ function Produto({
         <div>
           <Button
             color="secondary"
+            onClick={() => lidarComARemocaoDoProduto(id)}
           >
             <DeleteIcon />
           </Button>
 
           <span>{produtoNoCarrinho?.unidade || unidade}</span>
 
-          <Button onClick={() => adicionarNovoProduto({ id, nome, foto, valor, unidade })}>
+          <Button onClick={() => adicionarNovoProduto({ id, nome, foto, valor, unidade }, 1)}>
             <AddCircleOutlineIcon />
           </Button>
         </div>
