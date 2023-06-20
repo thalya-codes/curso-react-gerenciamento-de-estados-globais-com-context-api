@@ -35,6 +35,7 @@ function Produto({
           <Button
             color="error"
             onClick={() => lidarComARemocaoDoProduto(id)}
+            disabled={!produtoNoCarrinho}
           >
             <RemoveIcon />            
           </Button>

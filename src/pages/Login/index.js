@@ -48,6 +48,7 @@ function Login() {
         variant="contained"
         color="primary"
         onClick={handleClick}
+        disabled={nome.length < 4}
       >
         Avançar
       </Button>
