@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';import DeleteIcon from '@mui/icons-material/Delete';
+import RemoveIcon from '@mui/icons-material/Remove';
 import { Container } from './style';
 import { Button } from '@mui/material';
 import { useCarrinhoContext } from 'common/hooks/useCarrinhoContext';
@@ -17,7 +17,7 @@ function Produto({
     adicionarNovoProduto, 
     lidarComARemocaoDoProduto 
   } = useCarrinhoContext();
-  
+
   const produtoNoCarrinho = carrinho?.find(produto => produto.id === id);
 
   return (
@@ -33,16 +33,16 @@ function Produto({
         </div>
         <div>
           <Button
-            color="secondary"
+            color="error"
             onClick={() => lidarComARemocaoDoProduto(id)}
           >
-            <DeleteIcon />
+            <RemoveIcon />            
           </Button>
 
           <span>{produtoNoCarrinho?.unidade || unidade}</span>
 
-          <Button onClick={() => adicionarNovoProduto({ id, nome, foto, valor, unidade }, 1)}>
-            <AddCircleOutlineIcon />
+          <Button color="success" onClick={() => adicionarNovoProduto({ id, nome, foto, valor, unidade }, 1)}>
+            <AddIcon />
           </Button>
         </div>
       </Container>
