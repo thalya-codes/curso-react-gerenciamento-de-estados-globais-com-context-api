@@ -3,21 +3,25 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Feira from "./pages/Feira";
 import Carrinho from "./pages/Carrinho";
 import UsuarioProvider from "./common/contexts/Usuario";
+import { CarrinhoProvider } from "common/contexts/Carrinho";
 
 export default function Router() {
     return (
-        <BrowserRouter>
-            <Routes>
-                
-                <Route path="/" element={
-                    <UsuarioProvider>
-                        <Login/>
-                    </UsuarioProvider>} 
-                />
+        <>
+            <UsuarioProvider>
+                <Routes>
+                    <Route path="/" element={ <Login/>}/>
+                    <Route path="/feira" element={
+                        <CarrinhoProvider>
+                            <Feira />
+                        </CarrinhoProvider>
+                    }/>
+                </Routes>                
+            </UsuarioProvider> 
 
-                <Route path="/feira" element={<Feira />}/>
+            <Routes>       
                 <Route path="/carrinho" element={<Carrinho />}/>
             </Routes>
-        </BrowserRouter>
+        </>
     )
 }
