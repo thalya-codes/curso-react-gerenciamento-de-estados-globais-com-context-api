@@ -7,7 +7,7 @@ import NavBar from './Navbar';
   
 function Feira() {
   const { nome, saldo } = useContext(UsuarioContext);
-
+    
   return (
     <Container>
       <NavBar />
@@ -25,15 +25,10 @@ function Feira() {
 
         {
           feira.map(produto => (
-            <Produto {...produto}/>
+            <Produto key={produto.id} {...produto}/>
           ))
         }
-        {/* {feira.map(produto => (
-          <Produto
-            {...produto}
-            key={produto.id}
-          />
-        ))} */}
+
       </Lista>
     </Container>
   )
