@@ -1,15 +1,15 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 export const CarrinhoContext = createContext([]);
 
 export function CarrinhoProvider({ children }) {
     const [carrinho, setCarrinho] = useState([]);
-
-    useEffect(() => {
-        console.log('Produtos no carrinho: ', carrinho)
-    }, [carrinho])
+    const [quantidadeDeProdutos, setQuantidadeDeProdutos] = useState(0);
 
     return (
-        <CarrinhoContext.Provider value={[carrinho, setCarrinho]}>
+        <CarrinhoContext.Provider value={{
+            carrinho, setCarrinho, 
+            quantidadeDeProdutos, setQuantidadeDeProdutos
+        }}>
             {children}
         </CarrinhoContext.Provider>
     )
