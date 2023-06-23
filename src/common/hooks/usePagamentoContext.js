@@ -1,6 +1,8 @@
 import { PagamentoContext } from "common/contexts/Pagamento";
 import { useContext } from "react";
 
+//Papel deste: Lidar com as formas de pagamento
+// consumir o valor total no carrinho e aplicar os devidos juros
 export default function usePagamentoContext() {
     const { tiposDePagamento, formaDePagamento, setFormaDePagamento } 
     = useContext(PagamentoContext);

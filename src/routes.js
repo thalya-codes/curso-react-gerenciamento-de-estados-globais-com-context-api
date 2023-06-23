@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Feira from "pages/Feira";
 import Carrinho from "pages/Carrinho";
 import UsuarioProvider from "common/contexts/Usuario";
-import LayoutCarrinhoContext from "layout/carrinho/LayoutCarrinhoContext";
+import LayoutCarrinhoProvider from "layout/carrinho/LayoutCarrinhoProvider";
 import { PagamentoProvider } from "common/contexts/Pagamento";
 
 export default function Router() {
@@ -17,7 +17,7 @@ export default function Router() {
                        injetado no lugar onde está o Outlet, que neste caso,
                        será injetado dentro do Provider
                     */}
-                    <Route element={<LayoutCarrinhoContext />}>
+                    <Route element={<LayoutCarrinhoProvider />}>
                         <Route path="/feira" element={<Feira/>}/>
                         <Route path="/carrinho" element={
                             <PagamentoProvider>
