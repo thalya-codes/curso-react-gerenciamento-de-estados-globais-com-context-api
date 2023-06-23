@@ -10,13 +10,13 @@ import usePagamentoContext from 'common/hooks/usePagamentoContext';
 function Carrinho() {
   const navigate = useNavigate();
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const { carrinho } = useCarrinhoContext();
+  const { carrinho, valorTotalCarrinho } = useCarrinhoContext();
   const { 
     tiposDePagamento, 
     formaDePagamento, 
-    selecionarFormaDePagamento 
+    selecionarFormaDePagamento
   } = usePagamentoContext();
-  
+
   return (
     <Container>
       <Voltar onClick={() => navigate(-1)}/>
@@ -50,7 +50,7 @@ function Carrinho() {
       <TotalContainer>
           <div>
             <h2>Total no Carrinho: </h2>
-            <span>R$ </span>
+            <span>R$ {valorTotalCarrinho}</span>
           </div>
           <div>
             <h2> Saldo: </h2>

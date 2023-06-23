@@ -1,21 +1,24 @@
 import { CarrinhoContext } from "common/contexts/Carrinho";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
+//Objetivo deste hook
+  //Lidar com tudo que está relacionado com o carrinho e interações com os mesmos
+  // Isso inclui: 
+     // * Adicionar produtos
+     // * Remover produtos
+     // * Contabilizar a quantidade de itens adicionados
+     // * Somar o valor de todos os produtos adicionados ao carrinho
 export function useCarrinhoContext() {
-    const { 
-      carrinho, 
-      setCarrinho, 
-      quantidadeDeProdutos,
-      setQuantidadeDeProdutos
-    } = useContext(CarrinhoContext);
+  const [valorTotalCarrinho, setValorTotalCarrinho] = useState(0);
 
-   
+  const { carrinho, setCarrinho, quantidadeDeProdutos, setQuantidadeDeProdutos } = 
+  useContext(CarrinhoContext);
+
     useEffect(() => {
       const resultado = carrinho.reduce((acumulador, produto) => acumulador + produto.unidade, 0);
       setQuantidadeDeProdutos(resultado);    
+      
     }, [carrinho, setQuantidadeDeProdutos]);
-
-
 
     function atualizarUnidadeDoProduto(id, quantidade) {
       const carrinhoComUnidadeDoProdutoAtualizada = carrinho.map(produto => {
@@ -42,6 +45,18 @@ export function useCarrinhoContext() {
       atualizarUnidadeDoProduto(produto.id, quantidade);
     };
 
+    function calcularValorTotal() {
+      const valorTotal = carrinho.reduce((acumulador, produto) =>  (
+          acumulador + (produto.valor * produto.unidade)
+      ),0);    
+
+      setValorTotalCarrinho(valorTotal.toFixed(2));
+    }
+
+    useEffect(() => {
+      calcularValorTotal();
+    }, [carrinho]);
+
     //TODO: Rever os nomes das funções abaixo
     function removerProduto(id)  {
         setCarrinho((produtosAnteriores) => {
@@ -66,6 +81,7 @@ export function useCarrinhoContext() {
       carrinho, 
       adicionarNovoProduto, 
       lidarComARemocaoDoProduto, 
-      quantidadeDeProdutos 
+      quantidadeDeProdutos,
+      valorTotalCarrinho
     };
 }
