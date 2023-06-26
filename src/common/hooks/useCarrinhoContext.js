@@ -1,5 +1,6 @@
 import { CarrinhoContext } from "common/contexts/Carrinho";
 import { useContext, useEffect, useState } from "react";
+import usePagamentoContext from "./usePagamentoContext";
 
 //Objetivo deste hook
   //Lidar com tudo que está relacionado com o carrinho e interações com os mesmos
@@ -10,9 +11,8 @@ import { useContext, useEffect, useState } from "react";
      // * Somar o valor de todos os produtos adicionados ao carrinho
 export function useCarrinhoContext() {
   const [valorTotalCarrinho, setValorTotalCarrinho] = useState(0);
-
-  const { carrinho, setCarrinho, quantidadeDeProdutos, setQuantidadeDeProdutos } = 
-  useContext(CarrinhoContext);
+  const { carrinho, setCarrinho, quantidadeDeProdutos, setQuantidadeDeProdutos } = useContext(CarrinhoContext);
+  const { formaDePagamento } = usePagamentoContext();
 
     useEffect(() => {
       const resultado = carrinho.reduce((acumulador, produto) => acumulador + produto.unidade, 0);
@@ -47,15 +47,15 @@ export function useCarrinhoContext() {
 
     function calcularValorTotal() {
       const valorTotal = carrinho.reduce((acumulador, produto) =>  (
-          acumulador + (produto.valor * produto.unidade)
-      ),0);    
-
+          acumulador + (produto.valor * produto.unidade) 
+      ),0) * formaDePagamento.juros;    
+      
       setValorTotalCarrinho(valorTotal.toFixed(2));
     }
 
     useEffect(() => {
       calcularValorTotal();
-    }, [carrinho]);
+    }, [carrinho, formaDePagamento]);
 
     //TODO: Rever os nomes das funções abaixo
     function removerProduto(id)  {

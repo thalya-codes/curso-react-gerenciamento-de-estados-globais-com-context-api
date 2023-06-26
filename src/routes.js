@@ -4,7 +4,7 @@ import Feira from "pages/Feira";
 import Carrinho from "pages/Carrinho";
 import UsuarioProvider from "common/contexts/Usuario";
 import LayoutCarrinhoProvider from "layout/carrinho/LayoutCarrinhoProvider";
-import { PagamentoProvider } from "common/contexts/Pagamento";
+import LayoutPagamentoProvider from "layout/carrinho/LayoutPagamentoProvider";
 
 export default function Router() {
     return (
@@ -18,12 +18,10 @@ export default function Router() {
                        será injetado dentro do Provider
                     */}
                     <Route element={<LayoutCarrinhoProvider />}>
-                        <Route path="/feira" element={<Feira/>}/>
-                        <Route path="/carrinho" element={
-                            <PagamentoProvider>
-                                <Carrinho/>
-                            </PagamentoProvider>
-                        }/>
+                        <Route element={<LayoutPagamentoProvider />}>
+                            <Route path="/feira" element={<Feira/>}/>
+                            <Route path="/carrinho" element={<Carrinho/>}/>
+                        </Route>
                     </Route>      
                 </Routes>                
             </UsuarioProvider> 
