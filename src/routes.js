@@ -11,11 +11,6 @@ export default function Router() {
         <>
             <UsuarioProvider>
                 <Routes>                    
-                    {/*graças ao Outlet contido no componente  CarrinhoContextLayout
-                       todo o conteúdo passa dentro da rota pai será
-                       injetado no lugar onde está o Outlet, que neste caso,
-                       será injetado dentro do Provider
-                    */}
                     <Route element={<LayoutCarrinhoProvider />}>
                         <Route element={<LayoutPagamentoProvider />}>
                             <Route path="/" element={ <Login/>}/>
