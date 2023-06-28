@@ -58,7 +58,7 @@ function Carrinho() {
           </div>
           <div>
             <h2> Saldo: </h2>
-            <span> R$ {saldo}</span>
+            <span> R$ {Number(saldo).toFixed(2)}</span>
           </div>
           <div>
             <h2> Saldo Total: </h2>
