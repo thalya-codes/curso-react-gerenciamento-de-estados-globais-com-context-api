@@ -1,5 +1,5 @@
 import { Nav } from './styles';
-//import { ReactComponent as Logo } from 'assets/logo.svg';
+import { ReactComponent as Logo } from 'assets/logo.svg';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Button, Badge } from '@mui/material';
 import { useCarrinhoContext } from 'common/hooks/useCarrinhoContext';
@@ -11,7 +11,7 @@ export default function NavBar() {
 
   return (
     <Nav>
-      {/* <Logo /> */}
+      <Logo />
       <Button
         disabled={quantidadeDeProdutos === 0}
         onClick={() => navigate("/carrinho")}
