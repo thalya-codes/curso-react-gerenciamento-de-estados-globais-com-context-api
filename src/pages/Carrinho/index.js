@@ -72,7 +72,7 @@ function Carrinho() {
           }}
           color="primary"
           variant="contained"
-          disabled={ saldoTotal < 0}
+          disabled={ saldoTotal < 0 || carrinho.length === 0}
         >
           Comprar
         </Button>
