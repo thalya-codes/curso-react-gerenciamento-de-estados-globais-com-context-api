@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Button,Snackbar, InputLabel, Select, MenuItem } from '@mui/material';
 import Alert from '@mui/lab/Alert';
 import Produto from 'components/Produto';
@@ -6,11 +6,15 @@ import { Container, Voltar, TotalContainer, PagamentoContainer} from './styles';
 import { useCarrinhoContext } from 'common/hooks/useCarrinhoContext';
 import { useNavigate } from 'react-router-dom';
 import usePagamentoContext from 'common/hooks/usePagamentoContext';
+import { UsuarioContext } from 'common/contexts/Usuario';
 
 function Carrinho() {
   const navigate = useNavigate();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const { carrinho, valorTotalCarrinho } = useCarrinhoContext();
+  const { saldo } = useContext(UsuarioContext);
+  const saldoTotal = (saldo - valorTotalCarrinho).toFixed(2);
+  
   const { 
     tiposDePagamento, 
     formaDePagamento, 
@@ -49,27 +53,30 @@ function Carrinho() {
 
       <TotalContainer>
           <div>
-            <h2>Total no Carrinho: </h2>
+            <h2>Total dos produtos: </h2>
             <span>R$ {valorTotalCarrinho}</span>
           </div>
           <div>
             <h2> Saldo: </h2>
-            <span> R$ </span>
+            <span> R$ {saldo}</span>
           </div>
           <div>
             <h2> Saldo Total: </h2>
-            <span> R$ </span>
+            <span> R$ {saldoTotal}</span>
           </div>
         </TotalContainer>
-      <Button
-        onClick={() => {
-          setOpenSnackbar(true);
-        }}
-        color="primary"
-        variant="contained"
-      >
-         Comprar
-       </Button>
+   
+        <Button
+          onClick={() => {
+            setOpenSnackbar(true);
+          }}
+          color="primary"
+          variant="contained"
+          disabled={ saldoTotal < 0}
+        >
+          Comprar
+        </Button>
+
         <Snackbar
           anchorOrigin={
             { 
